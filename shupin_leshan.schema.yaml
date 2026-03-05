@@ -63,7 +63,7 @@ speller:
     - xform/([dtlzcs])un/$1en/	#啓用此行表示dtlzcs+un都併入en
     - xform/Ddi/le/	#的字讀音
     - xform/Dqu4/jie5/	#去字讀音
-#    - xform/Dlu5/liu2/	#六字讀音
+    # - xform/Dlu5/loe5/	#六字讀音
 
 #通入部分
     - xform/^([jqx])u5$/$1io5/	#啓用此行表示通入讀io
@@ -90,9 +90,7 @@ speller:
 #
     - xform/^([zcsr])e([1234])$/$1ei$2/ # 麻三
     - xform/^kuai3$/gai3/ # leshan: 块读做gai
-    - xform/i5/e5/ # leshan: iq = ieq
-    - xform/o5/oe5/
-    - xform/eo5/oe5/
+ 
 
 #戈歌部分
     - xform/eo([1234])$/o$1/	#啓用此行表示不分舒聲戈歌
@@ -100,7 +98,6 @@ speller:
 
 #入聲部分（岷江適用）注意順序以及配合上方戈歌部分
 #    - xform/ie5/i5/	#啓用此行表示ieq>iq
-    - xform/i5/ie5/	#啓用此行表示iq>ieq，注意和上行區分
     - xform/yie5/ye5/
 #    - xform/([gkh])?e5/eo5/	#啓用此行表示喉音eq>eoq
     - xform/ue5/oe5/	#啓用此行表示ueq>oq
@@ -117,7 +114,7 @@ speller:
 #尖團部分
     - xform/^zyi/ji/	#zyi>ji
     - xform/^cyi/qi/	#cyi>qi
-    - xform/^syi/xi/	#syi>xi
+    - xform/^syi/xi/	#syi>xi 
     - xform/^zi([a-z]+)/ji$1/	#zi->ji-
     - xform/^ci([a-z]+)/qi$1/	#ci->qi-
     - xform/^si([a-z]+)/xi$1/	#si->xi-
@@ -126,6 +123,15 @@ speller:
     - xform/^sv/xu/	#sü>xu, sü->xu-
     - xform/^sv/xu/	#sü>xu, sü->xu-
 
+#乐山部分
+    - xform/([mblpdt])i5/$1ie5/ # leshan: iq = ieq
+    - xform/o5/oe5/
+    - xform/eo5/oe5/
+    - xform/a5/e5/
+    - xform/^sye5/xie5/
+    - xform/^cye5/qie5/
+    - xform/^zye5/jie5/
+    - xform/i5/e5/
 #平翘部分
     - xform/^([zcs])h/$1/  #啓用此行表示無翹舌
 
