@@ -14,8 +14,8 @@ Options
   --dump     Print parsed rules and exit
 
 Examples
-  node index.js --schema shupin_tongyin.schema.yaml --section speller.algebra --input "zyi ci si"
-  echo "zyi ci si" | node index.js --schema shupin_tongyin.schema.yaml
+  node index.js --schema ../../schemas/shupins/shupin_tongyin.schema.yaml --section speller.algebra --input "zyi ci si"
+  echo "zyi ci si" | node index.js --schema ../../schemas/shupins/shupin_tongyin.schema.yaml
 
 Structure
   index.js           CLI entry

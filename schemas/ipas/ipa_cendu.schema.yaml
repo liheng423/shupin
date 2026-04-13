@@ -1,0 +1,158 @@
+# Rime schema
+# encoding: utf-8
+
+schema:
+  schema_id: ipa_cendu
+  name: IPA-成都
+  version: "1.8"
+  author:
+    - OpenAI Codex
+    - Gemini CLI
+  description: |
+    蜀拼 -> 成都 IPA 宽式转换规则。
+    - 预处理抹掉尖团区别（尖团合流）。
+    - 泥来洪混细分 (连≠年)。
+    - 支持连读变调 (Tone Sandhi)。
+    - 端精系合口一等在果、臻通舒、山入读开口。
+    - 见系二等开口在梗摄入声中不颚化。
+
+speller:
+  algebra:
+    # 1. 清理
+    - xform/◎.+$//
+    - xform/D//
+    - xform/C//
+
+    # 2. 预处理：尖团合流
+    - xform/^zyi/ji/
+    - xform/^cyi/qi/
+    - xform/^syi/xi/
+    - xform/^zi([aeoun])/ji$1/
+    - xform/^ci([aeoun])/qi$1/
+    - xform/^si([aeoun])/xi$1/
+    - xform/^zv/ju/
+    - xform/^cv/qu/
+    - xform/^sv/xu/
+    - xform/^zin/jin/
+    - xform/^cin/qin/
+    - xform/^sin/xin/
+
+    # 3. 连读变调
+    - xform/(\b[a-z]+1\s+)([a-z]+)1/$1$2_55/
+    - xform/([a-z]+)2(?=\s+[a-z]+[1-5])/$1_22/
+    - xform/([a-z]+)3(?=\s+[a-z]+[1-5])/$1_44/
+
+    # 4. 疑影丛母补齐
+    - xform/^o([1-5])$/NGo$1/
+    - xform/^ai([1-5])$/NGai$1/
+    - xform/^an([1-5])$/NGan$1/
+    - xform/^ang([1-5])$/NGang$1/
+    - xform/^ao([1-5])$/ȵiau$1/
+    - xform/^ya([1-5])$/ia$1/
+    - xform/^iai([1-5])$/ia$1/
+    - xform/^yi([1-5])$/ȵi$1/
+    - xform/^yan([1-5])$/ien$1/
+    - xform/^en([1-5])$/NGen$1/
+    - xform/^wu([1-5])$/u$1/
+    - xform/^wo([1-5])$/o$1/
+    - xform/^wa([1-5])$/ua$1/
+
+    # 5. 声母占位符 (及泥来逻辑)
+    - xform/^ng/NG/
+    - xform/^h/H/
+    - xform/^p/P/
+    - xform/^b/B/
+    - xform/^t/T/
+    - xform/^d/D/
+    - xform/^k/K/
+    - xform/^g/G/
+    - xform/^j/J/
+    - xform/^q/Q/
+    - xform/^x/X/
+    - xform/^r/R/
+    - xform/^z/Z/
+    - xform/^c/C/
+    - xform/^s/S/
+    - xform/^([ZCS])h/$1/
+
+    # 泥来细分逻辑
+    - xform/^n([iy])/ȵ$1/             # 年 ȵ
+    - xform/^l([iy])/LI$1/            # 连 l (safe placeholder)
+    - xform/^[nl]/n/                  # 洪音混：辣=纳 (n)
+
+    # 6. 韵母与开合口规则
+    - xform/([ZRCS])i([1-5_]?)/$1ɿ$2/
+    - xform/^([DTNLNZCS])uo([1-5_]?)/$1o$2/
+    - xform/^([DTNLNZCS])un([1-5_]?)/$1en$2/
+
+    # 韵母细化
+    - xform/iai([1-5_]?)/iai$1/
+    - xform/iang([1-5_]?)/iaŋ$1/
+    - xform/uang([1-5_]?)/uaŋ$1/
+    - xform/iong([1-5_]?)/yoŋ$1/
+    - xform/ong([1-5_]?)/oŋ$1/
+    - xform/ian([1-5_]?)/ien$1/
+    - xform/([^i])en([1-5_]?)/$1ən$2/
+    - xform/ang([1-5_]?)/aŋ$1/
+    - xform/ing([1-5_]?)/in$1/
+    - xform/uan([1-5_]?)/uan$1/
+    - xform/van([1-5_]?)/yɛn$1/
+    - xform/üan([1-5_]?)/yɛn$1/
+    - xform/an([1-5_]?)/an$1/
+    - xform/iao([1-5_]?)/iau$1/
+    - xform/uai([1-5_]?)/uai$1/
+    - xform/ai([1-5_]?)/ai$1/
+    - xform/ei([1-5_]?)/ei$1/
+    - xform/ao([1-5_]?)/au$1/
+    - xform/ou([1-5_]?)/əu$1/
+    - xform/ie([1-5_]?)/ie$1/
+    - xform/ve([1-5_]?)/yɛ$1/
+    - xform/ue([1-5_]?)/yɛ$1/
+    - xform/uo([1-5_]?)/uɛ$1/
+    - xform/ui([1-5_]?)/uei$1/
+    - xform/iu([1-5_]?)/iəu$1/
+    - xform/er([1-5_]?)/ɚ$1/
+    - xform/eo([1-5_]?)/o$1/
+    
+    # 基础元音
+    - xform/a([1-5_]?)/a$1/
+    - xform/o([1-5_]?)/o$1/
+    - xform/e([1-5_]?)/e$1/
+    - xform/i([1-5_]?)/i$1/
+    - xform/u([1-5_]?)/u$1/
+    - xform/v([1-5_]?)/y$1/
+    - xform/ü([1-5_]?)/y$1/
+
+    # 7. 还原占位符
+    - xform/NG/ŋ/
+    - xform/H/x/
+    - xform/P/pʰ/
+    - xform/B/p/
+    - xform/T/tʰ/
+    - xform/D/t/
+    - xform/K/kʰ/
+    - xform/G/k/
+    - xform/J/tɕ/
+    - xform/Q/tɕʰ/
+    - xform/X/ɕ/
+    - xform/R/z/
+    - xform/Z/ts/
+    - xform/C/tsʰ/
+    - xform/S/s/
+    - xform/LI/l/
+
+    - xform/^yi/i/
+    - xform/^yu/y/
+    - xform/^wu/u/
+    - xform/^y/j/
+    - xform/^w/w/
+
+    # 8. 声调最终映射
+    - xform/_55/˥˥/
+    - xform/_22/˨˨/
+    - xform/_44/˦˦/
+    - xform/1/˦˥/
+    - xform/2/˨˩/
+    - xform/3/˦˨/
+    - xform/4/˩˧/
+    - xform/5/˨˩/
